@@ -26,8 +26,8 @@ RUN apt-get install -y tzdata
 
 RUN apt-get install -y mongodb-org
 
-# ADD init.d-mongod /etc/init.d/mongod
-# RUN chmod u+x /etc/init.d/mongod
+ADD init.d-mongod /etc/init.d/mongod
+RUN chmod u+x /etc/init.d/mongod
 
 # Node JS
 RUN curl -sl https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
@@ -41,7 +41,7 @@ RUN apt-get -y install redis-server
 RUN sed -i "s/bind .*/bind 127.0.0.1/g" /etc/redis/redis.conf
 
 RUN mkdir /tmp/node_packages
-# COPY package.json /tmp/node_packages/package.json
+COPY package.json /tmp/node_packages/package.json
 RUN cd /tmp/node_packages && npm install
 
 # Create test user
