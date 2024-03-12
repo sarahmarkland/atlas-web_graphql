@@ -12,18 +12,37 @@ const TaskType = new GraphQLObjectType({
   }
 });
 
-// Export schema
+const RootQueryType = new GraphQLObjectType({
+  name: 'RootQueryType',
+  fields: {
+    task: {
+      type: TaskType,
+      args: { id: { type: GraphQLString } },
+      resolve(parent, args) {
+        // resolve with data
+      }
+    }
+  }
+});
+
+const RootMutationType = new GraphQLObjectType({
+  name: 'RootMutationType',
+  fields: {
+    addTask: {
+      type: TaskType,
+      args: {
+        title: { type: GraphQLString },
+        weight: { type: GraphQLInt },
+        description: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        // resolve with data
+      }
+    }
+  }
+});
+
 module.exports = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-      // Define queries here
-    }
-  }),
-  mutation: new GraphQLObjectType({
-    name: 'RootMutationType',
-    fields: {
-      // Define mutations here
-    }
-  })
+  query: RootQueryType,
+  mutation: RootMutationType
 });
