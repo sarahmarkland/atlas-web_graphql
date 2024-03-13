@@ -1,11 +1,21 @@
 // required modules
-const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema } = require('graphql');
+const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema, GraphQLID } = require('graphql');
 const _ = require('lodash');
 
 const TaskType = new GraphQLObjectType({
   name: 'Task',
   fields: {
-    id: { type: GraphQLString },
+    id: { type: GraphQLID },
+    title: { type: GraphQLString },
+    weight: { type: GraphQLInt },
+    description: { type: GraphQLString }
+  }
+});
+
+const ProjectType = new GraphQLObjectType({
+  name: 'Project',
+  fields: {
+    id: { type: GraphQLID },
     title: { type: GraphQLString },
     weight: { type: GraphQLInt },
     description: { type: GraphQLString }
@@ -27,14 +37,36 @@ const tasks = [
   },
 ];
 
+const projects = [
+  {
+    id: '1',
+    title: 'Project 1',
+    weight: 1,
+    description: 'Description for project 1'
+  },
+  {
+    id: '2',
+    title: 'Project 2',
+    weight: 1,
+    description: 'Description for project 2'
+  }
+];
+
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     task: {
       type: TaskType,
-      args: { id: { type: GraphQLString } },
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(tasks, { id: args.id });
+      }
+    }, // Add a comma here
+    project: {
+      type: ProjectType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return _.find(projects, { id: args.id });
       }
     }
   }
