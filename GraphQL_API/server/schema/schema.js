@@ -1,8 +1,8 @@
 // task 7
 const { GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLSchema, GraphQLID, GraphQLList, GraphQLNonNull } = require('graphql');
 const lodash = require('lodash');
-const Project = require('./models/project');
-const Task = require('./models/task');
+const Project = require('../models/project');
+const Task = require('../models/task');
 
 const TaskType = new GraphQLObjectType({
   name: 'Task',
@@ -61,13 +61,13 @@ const ProjectType = new GraphQLObjectType({
     tasks: {
       type: new GraphQLList(TaskType),
       resolve(parent) {
-        return tasks;
+        return arrayOftasks;
       }
     },
     projects: {
       type: new GraphQLList(ProjectType),
       resolve(parent) {
-        return projects;
+        return arrayOfprojects;
       }
     }
   }
