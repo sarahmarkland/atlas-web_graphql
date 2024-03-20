@@ -49,7 +49,7 @@ const ProjectType = new GraphQLObjectType({
         // return _.find(tasks, { id: args.id });
         return Task.find({ 'id': args.id });
       }
-    }, // Add a comma here
+    },
     project: {
       type: ProjectType,
       args: { id: { type: GraphQLID } },
@@ -57,19 +57,19 @@ const ProjectType = new GraphQLObjectType({
         // return _.find(projects, { id: args.id });
         return Project.find({ 'id': args.id });
       }
-    },
-    tasks: {
-      type: new GraphQLList(TaskType),
-      resolve(parent) {
-        return arrayOftasks;
-      }
-    },
-    projects: {
-      type: new GraphQLList(ProjectType),
-      resolve(parent) {
-        return arrayOfprojects;
-      }
     }
+    // tasks: {
+    //   type: new GraphQLList(TaskType),
+    //   resolve(parent) {
+    //     return arrayOftasks;
+    //   }
+    // },
+    // projects: {
+    //   type: new GraphQLList(ProjectType),
+    //   resolve(parent) {
+    //     return arrayOfprojects;
+    //   }
+    // }
   }
 });
 
