@@ -1,5 +1,7 @@
-// import React, { useState } from 'react';
+// import { useState } from 'react';
 import TaskDetails from './TaskDetails';
+import { graphql } from 'react-apollo';
+import {gql} from 'apollo-boost';
 
 function TaskList(props) {
   // const [state, setState] = useState({
@@ -16,4 +18,13 @@ function TaskList(props) {
   );
 }
 
-export default TaskList;
+const getTasksQuery = gql`
+{
+  tasks{
+    title
+    id
+   }
+}
+`;
+
+export default graphql(getTasksQuery)(TaskList);
